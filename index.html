@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Сорхугтани Аялал — Мөнх хөх тэнгэрийн орон Монгол</title>
+    <meta name="description" content="Улаанбаатар, 21 аймаг, дөрвөн улирал, баяр наадам, үндэсний хоол, аяллын зөвлөгөө ба аяллын багцууд — бүгд нэг дор." />
+    <meta name="theme-color" content="#0a1020" />
+    <meta property="og:title" content="Сорхугтани Аялал — Монгол" />
+    <meta property="og:description" content="Мөнх хөх тэнгэрийн орон Монголыг 3D-ээр нээ." />
+    <meta property="og:image" content="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Khongoryn_Els_04.jpg/1280px-Khongoryn_Els_04.jpg" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://thumb.wikimedia.org" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;600;800;900&family=Noto+Sans+Mongolian&display=swap" rel="stylesheet" />
+    <link id="cjk-font" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="loader" aria-hidden="true">
+      <svg class="knot" viewBox="0 0 120 120" width="120" height="120">
+        <path d="M60 10 L85 35 L60 60 L35 35 Z M60 60 L85 85 L60 110 L35 85 Z M10 60 L35 35 L60 60 L35 85 Z M60 60 L85 35 L110 60 L85 85 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+        <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5" />
+      </svg>
+      <p class="loader-text" data-i18n="loader">Мөнх хөх тэнгэрт тавтай морил</p>
+      <div class="loader-bar"><span></span></div>
+    </div>
+
+    <div class="cursor" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a href="#top" class="brand" aria-label="Sorkhugtani">
+        <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+          <circle cx="20" cy="9" r="4.5" fill="#f2b33d" />
+          <path d="M6 30 Q20 12 34 30 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+          <path d="M9 30 V35 H31 V30" fill="none" stroke="currentColor" stroke-width="2.2" />
+          <rect x="18" y="29" width="4" height="6" fill="#d6312f" />
+        </svg>
+        <span class="brand-name"><b>Sorkhugtani</b><small>Travel · Аялал</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main">
+        <a href="#ub" data-i18n="nav.ub"></a>
+        <a href="#map" data-i18n="nav.map"></a>
+        <a href="#seasons" data-i18n="nav.seasons"></a>
+        <a href="#festivals" data-i18n="nav.festivals"></a>
+        <a href="#food" data-i18n="nav.food"></a>
+        <a href="#guide" data-i18n="nav.guide"></a>
+        <a href="#tours" data-i18n="nav.tours"></a>
+      </nav>
+      <div class="header-tools">
+        <div class="lang">
+          <button class="lang-btn" aria-haspopup="listbox" aria-expanded="false"><span class="lang-cur">MN</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 0c3 3 3 17 0 20M12 2c-3 3-3 17 0 20M2 12h20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </button>
+          <ul class="lang-menu" role="listbox"></ul>
+        </div>
+        <button class="cart-btn" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 002 1.6h8.2a2 2 0 002-1.5L21 8H6.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.4" fill="currentColor"/><circle cx="18" cy="20.5" r="1.4" fill="currentColor"/></svg>
+          <span class="cart-count">0</span>
+        </button>
+        <button class="menu-btn" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="hero">
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-shade"></div>
+        <div class="hero-mongol" aria-hidden="true">ᠮᠣᠩᠭᠣᠯ</div>
+        <div class="hero-inner"></div>
+        <div class="season-switch" role="group"></div>
+        <div class="scroll-hint"><span></span><em data-i18n="hero.scroll"></em></div>
+      </section>
+
+      <section class="stats" id="stats"></section>
+      <div class="marquee" aria-hidden="true"><div class="marquee-track"></div></div>
+
+      <section class="ub" id="ub"></section>
+      <section class="mapsec" id="map"></section>
+      <section class="aimag-grid-sec" id="aimags"></section>
+      <section class="seasons" id="seasons"></section>
+      <section class="festivals" id="festivals"></section>
+      <section class="food" id="food"></section>
+      <section class="guide" id="guide"></section>
+      <section class="tours" id="tours"></section>
+      <section class="cta" id="contact"></section>
+    </main>
+
+    <footer class="site-footer" id="footer"></footer>
+
+    <aside class="cart-drawer" aria-hidden="true">
+      <div class="cart-backdrop"></div>
+      <div class="cart-panel" role="dialog" aria-modal="true"></div>
+    </aside>
+
+    <div class="mobile-menu" aria-hidden="true"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
