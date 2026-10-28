@@ -426,9 +426,7 @@ function mountMap() {
           if (!tip) return;
           if (!id || !ev) { tip.style.opacity = 0; return; }
           const r = stage.getBoundingClientRect();
-          const name = id === 'ub' ? state.t.ub.places.sukhbaatar_sq.name.split(' ')[0] && 'Улаанбаатар' : state.t.aimags[id]?.name;
-          const km = AIMAGS[id]?.km;
-          tip.innerHTML = id === 'ub' ? `<b>UB</b> · ${esc(state.t.nav.ub)}` : `${esc(name)} · <b>${fmt(km)} km</b>`;
+          tip.innerHTML = id === 'ub' ? `<b>UB</b> · ${esc(state.t.nav.ub)}` : `${esc(state.t.aimags[id]?.name)} · <b>${fmt(AIMAGS[id]?.km)} km</b>`;
           tip.style.left = `${ev.clientX - r.left}px`;
           tip.style.top = `${ev.clientY - r.top}px`;
           tip.style.opacity = 1;
