@@ -145,13 +145,12 @@ function renderMapSection() {
   const M = state.t.map;
   const legend = REGIONS.map((r) => `<button data-region="${r.id}" class="${state.mapRegion === r.id ? 'on' : ''}"><i style="background:${r.color}"></i>${esc(state.t.regions[r.id].name)}</button>`).join('');
   $('#map').innerHTML = `<div class="wrap">${head(M)}
-    <div class="map-stage reveal">
+    <div class="map-box reveal"><div class="map-stage">
       <canvas id="map-canvas" aria-label="${esc(M.title)}"></canvas>
       <div class="map-legend"><button data-region="" class="${state.mapRegion ? '' : 'on'}"><i style="background:#fff"></i>${esc(M.all)}</button>${legend}</div>
       <div class="map-tip"></div>
-      <aside class="map-panel" aria-live="polite"></aside>
       <div class="map-hint">${esc(M.hint)}</div>
-    </div>
+    </div><aside class="map-panel" aria-live="polite"></aside></div>
     <p class="map-note">${esc(M.note)}</p></div>`;
 }
 
@@ -344,7 +343,7 @@ function renderFooter() {
   const F = state.t.footer;
   const N = state.t.nav;
   const credits = Object.entries(IMAGES).map(([k, I]) =>
-    `<li><a href="${commonsPage(k)}" target="_blank" rel="noopener">${esc(I.f)}</a> — ${esc(I.a)}, ${esc(I.l)}</li>`).join('');
+    `<li><a href="${commonsPage(k)}" target="_blank" rel="noopener">${esc(I.f)}</a>, ${esc(I.a)}, ${esc(I.l)}</li>`).join('');
   $('#footer').innerHTML = `<div class="wrap">
     <div class="foot-grid">
       <div><h4>${esc(F.company)}</h4><p>${esc(F.tagline)}</p><p>${esc(F.address)}</p>
@@ -443,8 +442,9 @@ function mountMap() {
 function showAimag(id, fromList) {
   const panel = $('.map-panel');
   if (!panel) return;
+  if (!id) { closeMapPanel(); return; }
   if (id === 'ub') {
-    document.querySelector('#ub')?.scrollIntoView({ behavior: 'smooth' });
+    scrollToEl($('#ub'));
     return;
   }
   state.selectedAimag = id;
@@ -456,8 +456,17 @@ function showAimag(id, fromList) {
   if (fromList) {
     map?.select(id);
     scrollToEl($('#map'));
+  } else if (matchMedia('(max-width: 1024px)').matches) {
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
   }
   $('.map-hint')?.style.setProperty('opacity', '0');
+}
+
+function closeMapPanel() {
+  $('.map-panel')?.classList.remove('open');
+  state.selectedAimag = null;
+  map?.select(null);
+  map?.setLabel('');
 }
 
 /* ---------------- Motion ---------------- */
@@ -623,7 +632,7 @@ function bindEvents() {
       map?.setFilter(state.mapRegion);
       return;
     }
-    if (e.target.closest('.mp-close')) { $('.map-panel').classList.remove('open'); state.selectedAimag = null; map?.select(null); map?.setLabel(''); return; }
+    if (e.target.closest('.mp-close')) { closeMapPanel(); return; }
     const card = e.target.closest('[data-aimag]');
     if (card) { showAimag(card.dataset.aimag, true); return; }
     const dot = e.target.closest('[data-fest]');

@@ -127,7 +127,7 @@ export function initMap(container, { onSelect, onHover, lowPower = false } = {})
     if (arc) { scene.remove(arc); arc.geometry.dispose(); arc = null; }
     if (arcDot) { scene.remove(arcDot); arcDot = null; }
     const a = AIMAGS[id];
-    if (!a) return;
+    if (!a) { targetPin.visible = false; return; }
     const p = proj(a.lon, a.lat);
     const from = new THREE.Vector3(ubPos[0], ubPos[1], depth * 1.6 + 0.2);
     const to = new THREE.Vector3(p[0], p[1], depth + 0.75 + 0.2);
@@ -174,14 +174,14 @@ export function initMap(container, { onSelect, onHover, lowPower = false } = {})
   canvas.addEventListener('pointerup', (e) => {
     if (!downAt || Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 6) return;
     const m = pick(e);
-    if (m) select(m.userData.id, true);
+    select(m ? m.userData.id : null, true);
   });
 
   function select(id, fromMap = false) {
     selected = id;
     drawArc(id === 'ub' ? null : id);
     if (id === 'ub' && arc) { scene.remove(arc); arc = null; }
-    onSelect?.(id, fromMap);
+    if (fromMap) onSelect?.(id, fromMap);
   }
   function setLabel(html) { targetLabelEl.innerHTML = html; targetLabel.visible = !!html; }
   function setFilter(regionId) { filterRegion = regionId; }
